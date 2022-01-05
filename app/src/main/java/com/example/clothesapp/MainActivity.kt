@@ -2,35 +2,29 @@ package com.example.clothesapp
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.clothesapp.data.data
 import com.example.clothesapp.data.data.currentListOfBitmaps
 import com.example.clothesapp.data.data.currentListOfClothes
-import com.example.clothesapp.fragment.AddImageFragment
-import com.example.clothesapp.fragment.EditClothesFragment
-import com.example.clothesapp.fragment.ImagesFragment
-import com.example.clothesapp.fragment.RemoveFragment
+import com.example.clothesapp.ktClasses.*
 import com.example.clothesapp.ml.Modeltwo
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
-import java.io.FileInputStream
 import java.io.IOException
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
-import kotlin.jvm.Throws
 
 
 class MainActivity : AppCompatActivity() {
@@ -42,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
@@ -85,16 +80,24 @@ class MainActivity : AppCompatActivity() {
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
                 when (data.currentFragment) {
                     R.id.imagesFragment -> {
+                        data.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_removeFragment)
                     }
                     R.id.changeImageFragment -> {
+                        data.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_removeFragment)
                     }
                     R.id.editClothesFragment -> {
+                        data.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_removeFragment)
+                    }
+                    R.id.startFragment -> {
+                        data.currentFragment = R.id.removeFragment
+                        currentFragment!!.requireView().findNavController()
+                            .navigate(R.id.action_startFragment_to_removeFragment)
                     }
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
                 }
@@ -104,16 +107,24 @@ class MainActivity : AppCompatActivity() {
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
                 when (data.currentFragment) {
                     R.id.imagesFragment -> {
+                        data.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_startFragment)
                     }
                     R.id.changeImageFragment -> {
+                        data.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_startFragment)
                     }
                     R.id.editClothesFragment -> {
+                        data.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_startFragment)
+                    }
+                    R.id.removeFragment -> {
+                        data.currentFragment = R.id.startFragment
+                        currentFragment!!.requireView().findNavController()
+                            .navigate(R.id.action_removeFragment_to_startFragment)
                     }
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
                 }
@@ -139,7 +150,8 @@ class MainActivity : AppCompatActivity() {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffSets, declaredLenght              )
     }*/
 
-    private fun getClothes(bitmap: Bitmap, bwBitmap: Bitmap): Clothes {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun getClothes(bitmap: Bitmap, bwBitmap: Bitmap): Cloth {
         val resized = Bitmap.createScaledBitmap(bitmap, 28, 28, true)
 //            val tbuffer = TensorImage.fromBitmap(resized)
 
@@ -168,9 +180,9 @@ class MainActivity : AppCompatActivity() {
         model.close()
 
         if (outputFeature0.floatArray[0] >= outputFeature0.floatArray[1]) {
-            return Clothes(TShirt(), bitmap, White())
+            return Cloth(CN.TSHIRT, ClothesColor.WHITE, CT.LIGHT_TOP, 0, bitmap)
         } else {
-            return Clothes(Jeans(), bitmap, Black())
+            return Cloth(CN.JEANS, ClothesColor.BLACK, CT.LIGHT_DOWN, 1, bitmap)
         }
     }
 

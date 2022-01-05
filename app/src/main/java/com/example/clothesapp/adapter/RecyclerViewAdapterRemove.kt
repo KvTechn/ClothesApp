@@ -1,12 +1,10 @@
 package com.example.clothesapp.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clothesapp.R
 import com.example.clothesapp.data.data
@@ -17,11 +15,10 @@ class RecyclerViewAdapterRemove : RecyclerView.Adapter<RecyclerViewAdapterRemove
         fun onBing(position: Int) {
             var currentClothes = data.currentListOfClothes[position]
             itemView.findViewById<TextView>(R.id.textViewTypeItem).text =
-                "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.clothName
-            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.color.colorName}"
-            itemView.findViewById<TextView>(R.id.textViewWarmthItem).text = "Теплота: ${currentClothes.name.clothWarmth.toString()}"
+                "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.cloth.name
+            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.clothColor.colorToName.second}"
 
             itemView.findViewById<ImageView>(R.id.imageView2).setImageBitmap(currentClothes.photo)
             itemView.setOnClickListener {
