@@ -69,8 +69,8 @@ class StartFragment : Fragment() {
                             "Ваши координаты: ${it.data!!.latitude}, ${it.data.longitude}"
 
                         val rv = view.findViewById<RecyclerView>(R.id.setRv)
-                        rv.adapter = RecyclerViewAdapterRemove()
-                        rv.layoutManager = GridLayoutManager(requireContext(), 2)
+//                        rv.adapter = RecyclerViewAdapterRemove()
+//                        rv.layoutManager = GridLayoutManager(requireContext(), 2)
                         viewModel.clearSearch()
                     }
                 }
