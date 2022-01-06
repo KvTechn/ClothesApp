@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:textColor="@color/second_main"
             android:textStyle="bold"
             android:text="Тип: Верх"/>
@@ -48,15 +48,7 @@
             android:layout_marginTop="65dp"
             android:text="Цвет: Чёрный"/>
 
-        <TextView
-            android:id="@+id/textViewWarmthItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"
-            android:textColor="@color/second_main"
-            android:layout_marginTop="45dp"
-            android:text="Теплота: 2/10"/>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="145dp"
             android:layout_height="190dp"

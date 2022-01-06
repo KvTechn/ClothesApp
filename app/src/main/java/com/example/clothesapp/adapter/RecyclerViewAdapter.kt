@@ -1,4 +1,4 @@
-package com.example.clothesapp
+package com.example.clothesapp.adapter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,19 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.clothesapp.R
 import com.example.clothesapp.data.data
+import com.example.clothesapp.ktClasses.Cloth
 
 
-class ClothesRecyclerViewAdapter : RecyclerView.Adapter<ClothesRecyclerViewAdapter.MyViewHolder>() {
+class ClothesRecyclerViewAdapter(private val currentClothes:MutableList<Cloth>) : RecyclerView.Adapter<ClothesRecyclerViewAdapter.MyViewHolder>() {
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun onBing(position: Int) {
-            var currentClothes = data.currentListOfClothes[position]
+        fun onBing(position: Int, clothes: MutableList<Cloth>) {
+            val currentClothes = clothes[position]
             itemView.findViewById<TextView>(R.id.textViewTypeItem).text =
-                "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.clothName
-            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.clothType.typeName}"
-            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.color.colorName}"
-            itemView.findViewById<TextView>(R.id.textViewWarmthItem).text = "Теплота: ${currentClothes.name.clothWarmth.toString()}/10"
+                "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewNameItem).text = currentClothes.cloth.clothName
+            itemView.findViewById<TextView>(R.id.textViewTypeItem).text = "Тип: ${currentClothes.type.typeName}"
+            itemView.findViewById<TextView>(R.id.textViewColorItem).text = "Цвет: ${currentClothes.clothColor.colorToName.second}"
 
             itemView.findViewById<ImageView>(R.id.imageView2).setImageBitmap(currentClothes.photo)
             itemView.setOnClickListener {
@@ -46,7 +47,7 @@ class ClothesRecyclerViewAdapter : RecyclerView.Adapter<ClothesRecyclerViewAdapt
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.onBing(position)
+        holder.onBing(position, currentClothes)
     }
 
     override fun getItemCount(): Int = data.currentListOfClothes.size

@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.clothesapp.ClothesRecyclerViewAdapter
+import com.example.clothesapp.adapter.ClothesRecyclerViewAdapter
 import com.example.clothesapp.R
 import com.example.clothesapp.data.data
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,7 +26,7 @@ class ImagesFragment : Fragment() {
             view.findViewById<TextView>(R.id.textViewEmpty).visibility = View.GONE
             view.findViewById<ImageView>(R.id.imageViewEmpty).visibility = View.GONE
             var recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.adapter = ClothesRecyclerViewAdapter()
+            recyclerView.adapter = ClothesRecyclerViewAdapter(data.currentListOfClothes)
             recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         }
         view.findViewById<FloatingActionButton>(R.id.fabAddClothes).setOnClickListener {

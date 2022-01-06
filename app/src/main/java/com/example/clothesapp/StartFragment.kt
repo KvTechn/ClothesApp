@@ -18,6 +18,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.clothesapp.adapter.ClothesRecyclerViewAdapter
+import com.example.clothesapp.adapter.RecyclerViewAdapterRemove
 import com.example.clothesapp.data.data
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
@@ -46,21 +50,27 @@ class StartFragment : Fragment() {
         view.findViewById<Button>(R.id.toMapButton).setOnClickListener {
             checkLocationPermissions()
         }
+        val toMapButton = view.findViewById<Button>(R.id.toMapButton)
         lifecycle.coroutineScope.launchWhenStarted {
             viewModel.tapRequestState.collectLatest {
                 when (it) {
                     is Resource.Error -> {
                     }
                     is Resource.Loading -> {
-                        view.findViewById<Button>(R.id.toMapButton).visibility = View.GONE
+                        toMapButton.visibility = View.GONE
                         view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
-                        view.findViewById<Button>(R.id.toMapButton).visibility = View.VISIBLE
+                        toMapButton.visibility = View.VISIBLE
+                        toMapButton.text = "Обновить локацию"
                         view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
 
-                        view.findViewById<TextView>(R.id.textViewLatLan).text = "Ваши координаты: ${it.data!!.latitude}, ${it.data.longitude}"
+                        view.findViewById<TextView>(R.id.textViewLatLan).text =
+                            "Ваши координаты: ${it.data!!.latitude}, ${it.data.longitude}"
 
+                        val rv = view.findViewById<RecyclerView>(R.id.setRv)
+//                        rv.adapter = RecyclerViewAdapterRemove()
+//                        rv.layoutManager = GridLayoutManager(requireContext(), 2)
                         viewModel.clearSearch()
                     }
                 }

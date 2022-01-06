@@ -80,5 +80,9 @@
         android:id="@+id/startFragment"
         android:name="com.example.clothesapp.StartFragment"
         android:label="start_fragment"
-        tools:layout="@layout/start_fragment" />
+        tools:layout="@layout/start_fragment" >
+        <action
+            android:id="@+id/action_startFragment_to_removeFragment"
+            app:destination="@id/removeFragment" />
+    </fragment>
 </navigation>

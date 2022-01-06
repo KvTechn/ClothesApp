@@ -41,7 +41,7 @@ class StartViewModel(application: Application) : AndroidViewModel(application) {
             )
         } else {
             val point = lastPositionNetwork
-            _tapRequestState.value = point?.let {
+            _tapRequestState.value = point.let {
                 Resource.Success(it)
             } ?: Resource.Error("No data")
         }

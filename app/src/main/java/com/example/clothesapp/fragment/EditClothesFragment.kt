@@ -9,11 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.clothesapp.Clothes
+import com.example.clothesapp.ktClasses.Clothes
 import com.example.clothesapp.R
 import com.example.clothesapp.data.data
 import com.example.clothesapp.data.data.allColors
 import com.example.clothesapp.data.data.clothes
+import com.example.clothesapp.ktClasses.Cloth
+import com.example.clothesapp.ktClasses.ClothesColor
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class EditClothesFragment : Fragment() {
@@ -27,13 +29,13 @@ class EditClothesFragment : Fragment() {
 
         if (position != null) {
             view.findViewById<TextView>(R.id.textViewChangeName).text =
-                data.currentListOfClothes[position].clothName
+                data.currentListOfClothes[position].cloth.clothName
             view.findViewById<TextView>(R.id.textViewChangeType).text =
-                "${data.currentListOfClothes[position].clothType.typeName}"
+                "${data.currentListOfClothes[position].type.typeName}"
             view.findViewById<TextView>(R.id.textViewChangeColor).text =
-                "${data.currentListOfClothes[position].color.colorName}"
+                "${data.currentListOfClothes[position].clothColor.colorToName.second}"
             view.findViewById<TextView>(R.id.textViewChangeWarmth).text =
-                "Теплота: ${data.currentListOfClothes[position].name.clothWarmth.toString()}/10"
+                "Теплота: 2/10"
             view.findViewById<ImageView>(R.id.imageViewChange)
                 .setImageBitmap(data.currentListOfClothes[position].photo)
         }
@@ -58,20 +60,22 @@ class EditClothesFragment : Fragment() {
                             "Ок"
                         ) { p0, p1 ->
                             val currentCloth = data.currentListOfClothes[position!!]
-                            val newCloth = Clothes(
+                            val newCloth = Cloth(
                                 data.nameToClothName[clothes[pos]]!!,
-                                currentCloth.photo,
-                                currentCloth.color
+                                currentCloth.clothColor,
+                                data.CNtoCT[data.nameToClothName[clothes[pos]]!!]!!,
+                                0,
+                                currentCloth.photo
                             )
                             data.currentListOfClothes[position] = newCloth
                             view.findViewById<TextView>(R.id.textViewChangeName).text =
-                                newCloth.clothName
+                                newCloth.cloth.clothName
                             view.findViewById<TextView>(R.id.textViewChangeType).text =
-                                "${newCloth.clothType.typeName}"
+                                "${newCloth.type.typeName}"
                             view.findViewById<TextView>(R.id.textViewChangeColor).text =
-                                "${newCloth.color.colorName}"
+                                "${newCloth.clothColor.colorToName.second}"
                             view.findViewById<TextView>(R.id.textViewChangeWarmth).text =
-                                "Теплота: ${newCloth.name.clothWarmth.toString()}/10"
+                                "Теплота: 2/10"
                         }
                         ad.setNegativeButton(
                             "Отмена"
@@ -81,21 +85,23 @@ class EditClothesFragment : Fragment() {
                     }
                     1 -> {
                         var ad = AlertDialog.Builder(view.context)
-                        ad.setTitle("Выберите предмет одежды")
+                        ad.setTitle("Выберите цвет одежды")
                         var pos = 0
                         ad.setSingleChoiceItems(allColors, pos) { p0, p1 -> pos = p1 }
                         ad.setPositiveButton(
                             "Ок"
                         ) { p0, p1 ->
                             val currentCloth = data.currentListOfClothes[position!!]
-                            val newCloth = Clothes(
-                                currentCloth.name,
+                            val newCloth = Cloth(
+                                data.nameToClothName[currentCloth.cloth.clothName]!!,
+                                data.colorNameToColor[allColors[pos]]!!,
+                                data.CNtoCT[data.nameToClothName[currentCloth.cloth.clothName]]!!,
+                                0,
                                 currentCloth.photo,
-                                data.colorNameToColor[allColors[pos]]!!
                             )
                             data.currentListOfClothes[position] = newCloth
                             view.findViewById<TextView>(R.id.textViewChangeColor).text =
-                                "Цвет: ${newCloth.color.colorName}"
+                                "Цвет: ${newCloth.clothColor.colorToName.second}"
                         }
                         ad.setNegativeButton(
                             "Отмена"
