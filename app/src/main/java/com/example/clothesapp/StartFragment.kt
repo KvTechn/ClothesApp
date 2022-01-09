@@ -3,8 +3,9 @@ package com.example.clothesapp
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
+import android.graphics.BitmapFactory
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,17 +13,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.clothesapp.adapter.ClothesRecyclerViewAdapter
-import com.example.clothesapp.adapter.RecyclerViewAdapterRemove
-import com.example.clothesapp.data.data
+import com.example.clothesapp.adapter.RecyclerViewAdapterSet
+import com.example.clothesapp.data.DataObject
+import com.example.clothesapp.ktClasses.CN
+import com.example.clothesapp.ktClasses.CT
+import com.example.clothesapp.ktClasses.Cloth
+import com.example.clothesapp.ktClasses.ClothesColor
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 
@@ -41,12 +47,72 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.start_fragment, container, false)
+
+        val mutClothes = mutableListOf<MutableList<Cloth>>(
+            mutableListOf(
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.JEANS,
+                    ClothesColor.BLUE,
+                    CT.WARM_DOWN,
+                    1,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                )
+            ),
+            mutableListOf(
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.JEANS,
+                    ClothesColor.BLUE,
+                    CT.WARM_DOWN,
+                    1,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                )
+            ),
+        )
+
+
+        val rv = view.findViewById<RecyclerView>(R.id.setRv)
+        rv.adapter = RecyclerViewAdapterSet(mutClothes)
+        rv.layoutManager = LinearLayoutManager(requireContext())
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         view.findViewById<Button>(R.id.toMapButton).setOnClickListener {
             checkLocationPermissions()
         }

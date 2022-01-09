@@ -2,7 +2,7 @@ package com.example.clothesapp
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,16 +10,20 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
+import android.widget.RemoteViews
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.clothesapp.data.data
-import com.example.clothesapp.data.data.currentListOfBitmaps
-import com.example.clothesapp.data.data.currentListOfClothes
+import com.example.clothesapp.data.DataObject
+import com.example.clothesapp.data.DataObject.currentListOfBitmaps
+import com.example.clothesapp.data.DataObject.currentListOfClothes
 import com.example.clothesapp.ktClasses.*
 import com.example.clothesapp.ml.Modeltwo
 import org.tensorflow.lite.DataType
@@ -78,24 +82,24 @@ class MainActivity : AppCompatActivity() {
             R.id.removeItem -> {
                 val currentFragment = getVisibleFragment()
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (data.currentFragment) {
+                when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
-                        data.currentFragment = R.id.removeFragment
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_removeFragment)
                     }
                     R.id.changeImageFragment -> {
-                        data.currentFragment = R.id.removeFragment
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_removeFragment)
                     }
                     R.id.editClothesFragment -> {
-                        data.currentFragment = R.id.removeFragment
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_removeFragment)
                     }
                     R.id.startFragment -> {
-                        data.currentFragment = R.id.removeFragment
+                        DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_startFragment_to_removeFragment)
                     }
@@ -103,26 +107,31 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             R.id.setItem -> {
-                val currentFragment = getVisibleFragment()
+                val currentFragment = getVisibleFragment()/*
+                val uri = Uri.parse("tshirt://tshirt.com/set")
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+                intent.data = uri
+                currentFragment!!.requireView().findNavController().navigate*/
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (data.currentFragment) {
+                when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
-                        data.currentFragment = R.id.startFragment
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_imagesFragment_to_startFragment)
                     }
                     R.id.changeImageFragment -> {
-                        data.currentFragment = R.id.startFragment
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_changeImageFragment_to_startFragment)
                     }
                     R.id.editClothesFragment -> {
-                        data.currentFragment = R.id.startFragment
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_editClothesFragment_to_startFragment)
                     }
                     R.id.removeFragment -> {
-                        data.currentFragment = R.id.startFragment
+                        DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_removeFragment_to_startFragment)
                     }

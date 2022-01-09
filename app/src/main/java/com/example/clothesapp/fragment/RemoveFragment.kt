@@ -2,7 +2,6 @@ package com.example.clothesapp.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clothesapp.R
 import com.example.clothesapp.adapter.RecyclerViewAdapterRemove
-import com.example.clothesapp.data.data
+import com.example.clothesapp.data.DataObject
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class RemoveFragment : Fragment() {
@@ -27,35 +26,35 @@ class RemoveFragment : Fragment() {
         recyclerView.adapter = RecyclerViewAdapterRemove()
 
         view.findViewById<FloatingActionButton>(R.id.fabCancel).setOnClickListener {
-            data.currentFragment = R.id.imagesFragment
+            DataObject.currentFragment = R.id.imagesFragment
             view.findNavController().navigate(R.id.action_removeFragment_to_imagesFragment)
         }
 
         view.findViewById<FloatingActionButton>(R.id.fabDeleteChosen).setOnClickListener {
-            if (data.chosenItems.isNotEmpty()) {
+            if (DataObject.chosenItems.isNotEmpty()) {
                 var ad = AlertDialog.Builder(requireContext())
 
-                ad.setTitle("Вы уверены, что хотите удалить ${data.chosenItems.size} элементов?")
+                ad.setTitle("Вы уверены, что хотите удалить ${DataObject.chosenItems.size} элементов?")
 
                 ad.setPositiveButton("Да") { p0, p1 ->
-                    for (i in 0 until data.chosenItems.size) {
-                        if (data.chosenItems[i] >= i)
-                            data.currentListOfClothes.removeAt(data.chosenItems[i] - i)
+                    for (i in 0 until DataObject.chosenItems.size) {
+                        if (DataObject.chosenItems[i] >= i)
+                            DataObject.currentListOfClothes.removeAt(DataObject.chosenItems[i] - i)
                         else
-                            data.currentListOfClothes.removeAt(data.chosenItems[i])
+                            DataObject.currentListOfClothes.removeAt(DataObject.chosenItems[i])
                     }
-                    data.chosenItems.clear()
+                    DataObject.chosenItems.clear()
 //                    data.chosenItems.forEach {
 //                        data.currentListOfClothes.removeAt(it)
 //                    }
-                    data.currentFragment = R.id.imagesFragment
+                    DataObject.currentFragment = R.id.imagesFragment
                     view.findNavController().navigate(R.id.action_removeFragment_to_imagesFragment)
                 }
                 ad.setNegativeButton("Нет") { p0, p1 -> }
                 ad.create()
                 ad.show()
             } else {
-                data.currentFragment = R.id.imagesFragment
+                DataObject.currentFragment = R.id.imagesFragment
                 view.findNavController().navigate(R.id.action_removeFragment_to_imagesFragment)
             }
         }

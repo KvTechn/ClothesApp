@@ -7,9 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_01">#F9F2E5</color>
+    <color name="white_01">#d7ecf7</color>
     <color name="white_02">#F6F4F1</color>
-    <color name="second_main">#ff669900</color>
+<!--    <color name="second_main">#ff669900</color>-->
+    <color name="second_main">@android:color/holo_blue_light</color>
+    <color name="third_main">#20B2AA</color>
     <color name="main">#6B9D02</color>
     <color name="main_01">#48624C</color>
 </resources>

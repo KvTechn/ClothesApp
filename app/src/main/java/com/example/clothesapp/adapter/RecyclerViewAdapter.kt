@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clothesapp.R
-import com.example.clothesapp.data.data
+import com.example.clothesapp.data.DataObject
 import com.example.clothesapp.ktClasses.Cloth
 
 
@@ -27,7 +27,7 @@ class ClothesRecyclerViewAdapter(private val currentClothes:MutableList<Cloth>) 
             itemView.setOnClickListener {
                 var bundle = Bundle()
                 bundle.putInt("position", position)
-                data.currentFragment = R.id.editClothesFragment
+                DataObject.currentFragment = R.id.editClothesFragment
                 itemView.findNavController().navigate(R.id.action_imagesFragment_to_editClothesFragment, bundle)
             }
 //            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
@@ -50,5 +50,5 @@ class ClothesRecyclerViewAdapter(private val currentClothes:MutableList<Cloth>) 
         holder.onBing(position, currentClothes)
     }
 
-    override fun getItemCount(): Int = data.currentListOfClothes.size
+    override fun getItemCount(): Int = DataObject.currentListOfClothes.size
 }

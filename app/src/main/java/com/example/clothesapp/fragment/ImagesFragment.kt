@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clothesapp.adapter.ClothesRecyclerViewAdapter
 import com.example.clothesapp.R
-import com.example.clothesapp.data.data
+import com.example.clothesapp.data.DataObject
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ImagesFragment : Fragment() {
@@ -22,15 +22,15 @@ class ImagesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_images, container, false)
-        if (data.currentListOfClothes.isNotEmpty()){
+        if (DataObject.currentListOfClothes.isNotEmpty()){
             view.findViewById<TextView>(R.id.textViewEmpty).visibility = View.GONE
             view.findViewById<ImageView>(R.id.imageViewEmpty).visibility = View.GONE
             var recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
-            recyclerView.adapter = ClothesRecyclerViewAdapter(data.currentListOfClothes)
+            recyclerView.adapter = ClothesRecyclerViewAdapter(DataObject.currentListOfClothes)
             recyclerView.layoutManager = GridLayoutManager(view.context, 2)
         }
         view.findViewById<FloatingActionButton>(R.id.fabAddClothes).setOnClickListener {
-            data.currentFragment = R.id.changeImageFragment
+            DataObject.currentFragment = R.id.changeImageFragment
             view.findNavController().navigate(R.id.action_imagesFragment_to_changeImageFragment)
         }
         return view

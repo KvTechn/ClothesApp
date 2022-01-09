@@ -1,13 +1,14 @@
 package com.example.clothesapp.data
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.clothesapp.*
 import com.example.clothesapp.ktClasses.*
 
-object data {
+object DataObject {
     val allNames = mutableListOf<ClothName>(
         TShirt(), Shirt(), Jacket(), Jeans(), Shorts()
     )
@@ -75,7 +76,9 @@ object data {
 //        "Розовый" to Pink()
     )
 
-    var latlan : Location = Location("")
+
+
+    var latlan: Location = Location("")
 
     var chosenItems = mutableListOf<Int>()
 
