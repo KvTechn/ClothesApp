@@ -14,13 +14,6 @@ class RecyclerViewAdapterSetItem (private val currentClothes:MutableList<Cloth>)
         fun onBing(position: Int, clothes: MutableList<Cloth>) {
             val iv = itemView.findViewById<ImageView>(R.id.imageViewSetItem)
             iv.setImageBitmap(clothes[position].photo)
-//            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
-//                val intent = Intent()
-//                intent.type = "image/*"
-//                intent.action = Intent.ACTION_GET_CONTENT
-//                val myFragment: Fragment = ChangeImageFragment()
-//                itemView.findNavController().navigate(R.id.action_imagesFragment_to_changeImageFragment)
-//            }
         }
     }
 

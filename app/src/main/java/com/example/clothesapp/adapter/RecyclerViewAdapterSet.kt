@@ -17,13 +17,6 @@ class RecyclerViewAdapterSet(private val currentClothes:MutableList<MutableList<
             val layoutManager = LinearLayoutManager(itemView.context)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             rv.layoutManager = layoutManager
-//            itemView.findViewById<FloatingActionButton>(R.id.floatingActionButton3).setOnClickListener {
-//                val intent = Intent()
-//                intent.type = "image/*"
-//                intent.action = Intent.ACTION_GET_CONTENT
-//                val myFragment: Fragment = ChangeImageFragment()
-//                itemView.findNavController().navigate(R.id.action_imagesFragment_to_changeImageFragment)
-//            }
         }
     }
 

@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/imageItem"
+        android:icon="@drawable/ic_baseline_insert_photo_24"
+        app:showAsAction="always"
+        android:title="Все фотографии" />
     <item
         android:id="@+id/setItem"
         android:title="Собрать сет"
-        app:showAsAction="never"/>
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        />
     <item
         android:id="@+id/removeItem"
         android:title="Удалить элемент"
-        android:icon="@drawable/ic_baseline_remove_circle_outline_24"
-        app:showAsAction="never"/>
+        android:icon="@drawable/ic_baseline_delete_24"
+        app:showAsAction="always"/>
 </menu>

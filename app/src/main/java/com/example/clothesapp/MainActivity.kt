@@ -2,6 +2,8 @@ package com.example.clothesapp
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,6 +17,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDeepLinkBuilder
@@ -28,6 +31,7 @@ import com.example.clothesapp.ktClasses.*
 import com.example.clothesapp.ml.Modeltwo
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import org.xmlpull.v1.XmlPullParser
 import java.io.IOException
 
 
@@ -35,9 +39,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        supportActionBar?.title = ""
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setHomeAsUpIndicator(R.drawable.d)
+        supportActionBar?.setBackgroundDrawable(ColorDrawable(resources.getColor(R.color.second_main)))
         supportFragmentManager.findFragmentById(R.id.nav_host_fragment)?.findNavController()
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -57,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 //                            .addBinaryBody("image_file", new File("/path/to/file.jpg"))
 //                            .addTextBody("size", "auto")
 //                            .build()
-//                    ).execute();
+//                    ).execute();ч
 //                response.saveContent(new File("no-bg.png"))
 
                 if (blackAndWhiteBitmap != null) {
@@ -80,9 +86,18 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.removeItem -> {
-                val currentFragment = getVisibleFragment()
+
+                val intent = Intent("this", "tshirt://remove".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
+
+//                val deepLink = NavDeepLinkBuilder(this)
+//                    .setGraph(R.navigation.nav_graph)
+//                    .setDestination(R.id.deepLink)
+//                    .createPendingIntent()
+
+
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (DataObject.currentFragment) {
+                /*when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
                         DataObject.currentFragment = R.id.removeFragment
                         currentFragment!!.requireView().findNavController()
@@ -104,17 +119,20 @@ class MainActivity : AppCompatActivity() {
                             .navigate(R.id.action_startFragment_to_removeFragment)
                     }
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
-                }
+                }*/
             }
             R.id.setItem -> {
-                val currentFragment = getVisibleFragment()/*
-                val uri = Uri.parse("tshirt://tshirt.com/set")
+//                val currentFragment = getVisibleFragment()
+
+                val intent = Intent("this", "tshirt://set".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
+                /*val uri = Uri.parse("tshirt://tshirt.com/set")
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)
                 intent.data = uri
                 currentFragment!!.requireView().findNavController().navigate*/
 //                currentFragment!!.requireView().findNavController().navigate(R.id.action_imagesFragment_to_removeFragment)
-                when (DataObject.currentFragment) {
+                /*when (DataObject.currentFragment) {
                     R.id.imagesFragment -> {
                         DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
@@ -134,10 +152,14 @@ class MainActivity : AppCompatActivity() {
                         DataObject.currentFragment = R.id.startFragment
                         currentFragment!!.requireView().findNavController()
                             .navigate(R.id.action_removeFragment_to_startFragment)
-                    }
+                    }*/
 //                    NavHostFragment -> Toast.makeText(this, "ШТО? ${currentFragment!!.id}", Toast.LENGTH_SHORT).show()
-                }
+                //}
                 Toast.makeText(this, "set", Toast.LENGTH_SHORT).show()
+            }
+            R.id.imageItem -> {
+                val intent = Intent("this", "tshirt://all".toUri())
+                findNavController(R.id.nav_host_fragment).handleDeepLink(intent)
             }
         }
         return super.onOptionsItemSelected(item)

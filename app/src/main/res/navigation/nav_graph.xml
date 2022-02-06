@@ -24,12 +24,15 @@
         <action
             android:id="@+id/action_changeImageFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_changeImageFragment_to_editClothesFragment"
+            app:destination="@id/editClothesFragment" />
     </fragment>
     <fragment
         android:id="@+id/imagesFragment"
         android:name="com.example.clothesapp.fragment.ImagesFragment"
         android:label="fragment_images"
-        tools:layout="@layout/fragment_images" >
+        tools:layout="@layout/fragment_images">
         <action
             android:id="@+id/action_imagesFragment_to_changeImageFragment"
             app:destination="@id/changeImageFragment" />
@@ -42,6 +45,9 @@
         <action
             android:id="@+id/action_imagesFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <deepLink
+            android:id="@+id/deepLink2"
+            app:uri="tshirt://all" />
     </fragment>
     <fragment
         android:id="@+id/editClothesFragment"
@@ -75,6 +81,9 @@
         <action
             android:id="@+id/action_removeFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="tshirt://remove" />
     </fragment>
     <fragment
         android:id="@+id/startFragment"
@@ -86,6 +95,6 @@
             app:destination="@id/removeFragment" />
         <deepLink
             android:id="@+id/deepLink"
-            app:uri="tshirt://tshirt.com/set" />
+            app:uri="tshirt://set" />
     </fragment>
 </navigation>

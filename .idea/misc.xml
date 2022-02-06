@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/drawable/card_edge.xml" value="0.290625" />
+        <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.24155844155844156" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.290625" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/drawable/ic_baseline_remove_circle_outline_24.xml" value="0.290625" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/layout/activity_main.xml" value="0.1793478260869565" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/layout/set_item.xml" value="0.23114035087719298" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/layout/set_rv_item.xml" value="0.23114035087719298" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/layout/start_fragment.xml" value="0.2" />
+        <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/layout/weather_item.xml" value="0.21610169491525424" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/menu/menu_main.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/2007e/AndroidStudioProjects/ClothesApp/app/src/main/res/xml/shortcuts.xml" value="0.2149122807017544" />
       </map>

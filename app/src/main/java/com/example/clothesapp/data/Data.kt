@@ -2,6 +2,7 @@ package com.example.clothesapp.data
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -76,9 +77,11 @@ object DataObject {
 //        "Розовый" to Pink()
     )
 
-
-
     var latlan: Location = Location("")
+
+    var currentCity = ""
+    val currentTemp = ""
+    var currentWeatherImage: Drawable? = null
 
     var chosenItems = mutableListOf<Int>()
 

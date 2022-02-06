@@ -27,7 +27,14 @@ class AddImageFragment : Fragment() {
 
         fab.setOnClickListener {
             DataObject.currentFragment = R.id.imagesFragment
-            view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
+            val bund = Bundle()
+            if (DataObject.currentListOfClothes.size >= 1) {
+                bund.putInt("position", DataObject.currentListOfClothes.size - 1)
+                view.findNavController()
+                    .navigate(R.id.action_changeImageFragment_to_editClothesFragment, bund)
+            } else {
+                view.findNavController().navigate(R.id.action_changeImageFragment_to_imagesFragment)
+            }
         }
 
         view.findViewById<Button>(R.id.button).setOnClickListener {

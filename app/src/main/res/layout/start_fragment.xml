@@ -38,6 +38,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--<com.example.clothesapp.WeatherView
+        android:id="@+id/weatherView"
+        app:layout_constraintTop_toBottomOf="@id/toMapButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/setRv"
         android:layout_width="match_parent"

@@ -3,11 +3,16 @@ package com.example.clothesapp
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,12 +28,13 @@ import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import coil.Coil
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.example.clothesapp.adapter.RecyclerViewAdapterSet
 import com.example.clothesapp.data.DataObject
-import com.example.clothesapp.ktClasses.CN
-import com.example.clothesapp.ktClasses.CT
-import com.example.clothesapp.ktClasses.Cloth
-import com.example.clothesapp.ktClasses.ClothesColor
+import com.example.clothesapp.ktClasses.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 
@@ -48,61 +54,124 @@ class StartFragment : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.start_fragment, container, false)
 
-        val mutClothes = mutableListOf<MutableList<Cloth>>(
-            mutableListOf(
-                Cloth(
-                    CN.PULLOVER,
-                    ClothesColor.BLACK,
-                    CT.WARM_TOP,
-                    0,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                ),
-                Cloth(
-                    CN.JEANS,
-                    ClothesColor.BLUE,
-                    CT.WARM_DOWN,
-                    1,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                )
-            ),
-            mutableListOf(
-                Cloth(
-                    CN.PULLOVER,
-                    ClothesColor.BLACK,
-                    CT.WARM_TOP,
-                    0,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                ),
-                Cloth(
-                    CN.PULLOVER,
-                    ClothesColor.BLACK,
-                    CT.WARM_TOP,
-                    0,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                ),
-                Cloth(
-                    CN.PULLOVER,
-                    ClothesColor.BLACK,
-                    CT.WARM_TOP,
-                    0,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                ),
-                Cloth(
-                    CN.PULLOVER,
-                    ClothesColor.BLACK,
-                    CT.WARM_TOP,
-                    0,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                ),
-                Cloth(
-                    CN.JEANS,
-                    ClothesColor.BLUE,
-                    CT.WARM_DOWN,
-                    1,
-                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
-                )
-            ),
+        val cloth1 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM1,
+            CT.LIGHT_TOP,
+            1,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
         )
+        val cloth2 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM2,
+            CT.LIGHT_DOWN,
+            2,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+        val cloth3 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM3,
+            CT.WARM_TOP,
+            3,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+        val cloth4 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM4,
+            CT.LIGHT_DOWN,
+            4,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+        val cloth5 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM5,
+            CT.LIGHT_TOP,
+            5,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+
+        val cloth6 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM5,
+            CT.LIGHT_DOWN,
+            6,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+
+        val cloth7 = Cloth(
+            CN.PULLOVER,
+            ClothesColor.CUSTOM5,
+            CT.LIGHT_TOP,
+            7,
+            BitmapFactory.decodeResource(resources, R.drawable.hanger)
+        )
+
+        val mutClothes = ClothesMaster().choose(
+            DataObject.currentListOfClothes,
+            20
+        )//ClothesMaster().choose(mutableListOf(cloth1, cloth2, cloth3, cloth4, cloth5, cloth6, cloth7), 20)
+        Log.d("AAA", mutClothes.toString())
+        DataObject.currentListOfClothes.forEach {
+            Log.d("AAA", it.cloth.clothName)
+            Log.d("AAA", it.clothColor.colorToName.second)
+            Log.d("AAA", it.type.typeName)
+            Log.d("AAA", it.id.toString())
+        }
+        /*mutableListOf<MutableList<Cloth>>(
+            mutableListOf(
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.JEANS,
+                    ClothesColor.BLUE,
+                    CT.WARM_DOWN,
+                    1,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                )
+            ),
+            mutableListOf(
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.PULLOVER,
+                    ClothesColor.BLACK,
+                    CT.WARM_TOP,
+                    0,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                ),
+                Cloth(
+                    CN.JEANS,
+                    ClothesColor.BLUE,
+                    CT.WARM_DOWN,
+                    1,
+                    BitmapFactory.decodeResource(resources, R.drawable.hanger)
+                )
+            ),
+        )*/
 
 
         val rv = view.findViewById<RecyclerView>(R.id.setRv)
@@ -121,6 +190,10 @@ class StartFragment : Fragment() {
             viewModel.tapRequestState.collectLatest {
                 when (it) {
                     is Resource.Error -> {
+                        view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
+                        view.findViewById<TextView>(R.id.textViewLatLan).text = "Нет интернета"
+                        toMapButton.visibility = View.VISIBLE
+                        toMapButton.text = "Попробовать ещё раз"
                     }
                     is Resource.Loading -> {
                         toMapButton.visibility = View.GONE
@@ -130,14 +203,31 @@ class StartFragment : Fragment() {
                         toMapButton.visibility = View.VISIBLE
                         toMapButton.text = "Обновить локацию"
                         view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
-
-                        view.findViewById<TextView>(R.id.textViewLatLan).text =
-                            "Ваши координаты: ${it.data!!.latitude}, ${it.data.longitude}"
+                        val url =
+                            "https://openweathermap.org/img/wn/${it.data!!.currentWeather.weather[0].icon}@4x.png"
+                        println(it.data!!.currentWeather.weather[0].icon)
+                        println(url)
+                        val loader = ImageLoader(requireContext())
+                        val request = ImageRequest.Builder(requireContext())
+                            .data(url)
+                            .build()
+                        val res = (loader.execute(request) as SuccessResult).drawable
+                        DataObject.currentWeatherImage = res
+                        DataObject.currentCity = it.data!!.city[0].name
+                        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(res)
+                        if (it.data!!.city[0].local_names.ru != "") {
+                            view.findViewById<TextView>(R.id.textViewLatLan).text =
+                                "Ваш город: ${it.data!!.city[0].local_names.ru} ${it.data!!.currentWeather.main.temp}°C"
+                        } else {
+                            view.findViewById<TextView>(R.id.textViewLatLan).text =
+                                "Ваш город: ${it.data!!.city[0].name} ${it.data!!.currentWeather.main.temp}°C"
+                        }
 
                         val rv = view.findViewById<RecyclerView>(R.id.setRv)
 //                        rv.adapter = RecyclerViewAdapterRemove()
 //                        rv.layoutManager = GridLayoutManager(requireContext(), 2)
-                        viewModel.clearSearch()
+//                        viewModel.clearSearch()
                     }
                 }
             }

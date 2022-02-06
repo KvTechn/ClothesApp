@@ -58,6 +58,11 @@ enum class ClothesColor(val colorToName: Pair<Color, String>) {
     GREEN(Pair(Color.valueOf(0F, 255F, 0F), "Зелёный")),
     BLUE(Pair(Color.valueOf(0F, 0F, 255F), "Синий")),
     YELLOW(Pair(Color.valueOf(255F, 255F, 0F), "Жёлтый")),
+    CUSTOM1(Pair(Color.valueOf(100F, 50F, 64F), "Кастом1")),
+    CUSTOM2(Pair(Color.valueOf(107F, 245F, 2F), "Кастом2")),
+    CUSTOM3(Pair(Color.valueOf(11F, 129F, 214F), "Кастом3")),
+    CUSTOM4(Pair(Color.valueOf(31F, 25F, 59F), "Кастом3")),
+    CUSTOM5(Pair(Color.valueOf(9F, 237F, 142F), "Кастом3"))
 }
 
 //class White : ClothColor("Белый")
